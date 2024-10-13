@@ -1,0 +1,77 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "API para la detección de anomalías utilizando KNN",
+      "version": "1.0.0",
+      "title": "ML Detection API"
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Modelo",
+        "description": "Operaciones relacionadas al modelo de detección"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/train": {
+        "post": {
+          "tags": [
+            "Modelo"
+          ],
+          "summary": "Entrena el modelo",
+          "description": "Sube un archivo TSV y entrena el modelo de KNN.",
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "file",
+              "type": "file",
+              "description": "Archivo TSV",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Modelo entrenado exitosamente"
+            }
+          }
+        }
+      },
+      "/predict": {
+        "post": {
+          "tags": [
+            "Modelo"
+          ],
+          "summary": "Predice anomalías",
+          "description": "Envía datos de sesiones para predecir anomalías.",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Datos de sesiones",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "session_duration": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Resultado de las predicciones"
+            }
+          }
+        }
+      }
+    }
+  }  

@@ -1,0 +1,22 @@
+# Entorno virtual
+venv/
+env/
+
+# Archivos .pkl
+*.pkl
+
+# Archivos de caché de Python
+__pycache__/
+*.pyc
+
+# Archivos de configuración de entorno
+.env
+
+# Logs y archivos temporales
+*.log
+logs/
+tmp/
+
+# Archivos de configuración del editor (opcional)
+.vscode/
+.idea/
