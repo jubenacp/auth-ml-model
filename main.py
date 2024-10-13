@@ -1,10 +1,12 @@
 import time
 import pandas as pd
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from flask_swagger_ui import get_swaggerui_blueprint
 from ml_auth import train_model, predict_anomaly
 
 app = Flask(__name__)
+CORS(app)
 
 # Swagger setup
 SWAGGER_URL = '/docs'  # URL where Swagger UI will be available
