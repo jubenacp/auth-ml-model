@@ -1,5 +1,5 @@
-import pandas as pd
 import time
+import pandas as pd
 from flask import Flask, request, jsonify
 from flask_swagger_ui import get_swaggerui_blueprint
 from ml_auth import train_model, predict_anomaly
