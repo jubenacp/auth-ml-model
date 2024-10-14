@@ -89,14 +89,11 @@ def predict():
     """
     # Obtener datos de predicción en formato JSON
     data = request.get_json()
-    
-    # Convertir el JSON a un DataFrame
-    new_data = pd.DataFrame(data)
-    
+        
     # Realizar predicción
-    predictions = predict_anomaly(new_data)
+    predictions = predict_anomaly(data)
     
-    return jsonify({"predictions": predictions})
+    return jsonify(predictions)
 
 if __name__ == '__main__':
     app.run(debug=True)
