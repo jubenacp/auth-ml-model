@@ -14,6 +14,7 @@ def train_model(train_data, update_model_version=False):
     """
     Entrena un modelo KNN con validación cruzada estratificada y registra el uso de CPU.
     """
+    update_model_version = bool(update_model_version)
 
     # Variables para almacenar el uso de CPU
     cpu_percentages = []

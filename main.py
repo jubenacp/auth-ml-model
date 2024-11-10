@@ -34,7 +34,7 @@ def train():
         return jsonify({"error": "El JSON no contiene datos válidos"}), 400
 
     # Obtener el valor de updateModelVersion; si no se envía, por defecto es False
-    update_model_version = data.get('updateModelVersion', False)
+    update_model_version = bool(data.get('updateModelVersion', False))
 
     # Registrar el inicio del proceso de entrenamiento
     start_time = time.time()
