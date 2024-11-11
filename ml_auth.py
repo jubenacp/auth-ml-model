@@ -112,36 +112,23 @@ def train_model(train_data, update_model_version=False):
         # Calcular el uso promedio de CPU
         avg_cpu_usage = sum(cpu_percentages) / len(cpu_percentages) if cpu_percentages else 0.0
 
-        # Construir el resultado
+        # Construir el resultado en la estructura solicitada
         result = {
-            "message": f"Modelo entrenado y guardado en {model_path}",
-            "accuracy": accuracy,
-            "precision": precision,
-            "recall": recall,
-            "f1_score": f1,
-            "confusion_matrix": confusion_matrix_dict,
-            "cpu_usage": avg_cpu_usage,
             "status": "success",
-            "timestamp": timestamp,
-            "duration": duration,
-            "updateModelVersion": update_model_version
-        }
-
-        # Si updateModelVersion es True, agregar el campo modelVersion
-        if update_model_version:
-            data_size = len(df)
-            model_type = 'knn'
-            training_data_file = None  # Puedes asignar el nombre del archivo si lo usas
-
-            result['modelVersion'] = {
-                "model_type": model_type,
-                "data_size": data_size,
-                "training_data_file": training_data_file,
-                "model_path": model_path,
-                "timestamp": timestamp,
+            "message": f"Modelo entrenado y guardado en {model_path}",
+            "metrics": {
+                "accuracy": accuracy,
+                "precision": precision,
+                "recall": recall,
+                "f1_score": f1
+            },
+            "confusion_matrix": confusion_matrix_dict,
+            "training_details": {
+                "cpu_usage": avg_cpu_usage,
                 "duration": duration,
-                "best_k": best_k
+                "timestamp": timestamp
             }
+        }
 
         return result
 
@@ -150,7 +137,6 @@ def train_model(train_data, update_model_version=False):
         stop_cpu_measurement = True
         cpu_thread.join()
         return {"error": str(e)}, 500
-
 
 def predict_anomaly(data):
     """

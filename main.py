@@ -43,30 +43,25 @@ def train():
         # Llamar a la función de entrenamiento del modelo con los datos recibidos
         result = train_model(data, update_model_version)
 
-        # Calcular la duración del entrenamiento
-        duration = int(time.time() - start_time)
+        # Verificar si hubo un error en el entrenamiento
+        if "error" in result:
+            return jsonify(result), 500
 
-        # Agregar información adicional al resultado
-        result.update({
-            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(start_time)),
-            "duration": duration,
-            "status": "success",
-            "updateModelVersion": update_model_version  # Devolver el valor del parámetro recibido
-        })
+        # Devolver el resultado del entrenamiento del modelo como respuesta JSON
+        return jsonify(result), 200
 
     except Exception as e:
         # Manejar cualquier error durante el entrenamiento del modelo
         result = {
-            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(start_time)),
-            "duration": int(time.time() - start_time),
             "status": "failure",
             "error_message": str(e),
-            "updateModelVersion": update_model_version  # Devolver el valor del parámetro recibido
+            "training_details": {
+                "timestamp": time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(start_time)),
+                "duration": int(time.time() - start_time)
+            }
         }
 
-    # Devolver el resultado del entrenamiento del modelo como respuesta JSON
-    return jsonify(result)
-
+        return jsonify(result), 500
 
 @app.route('/predict', methods=['POST'])
 def predict():
